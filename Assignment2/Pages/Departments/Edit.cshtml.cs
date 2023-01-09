@@ -13,9 +13,9 @@ namespace Assignment2.Pages.Departments
 {
     public class EditModel : PageModel
     {
-        private readonly Assignment2.Data.ApplicationContext _context;
+        private readonly Assignment2.Data.AssignmentContext _context;
 
-        public EditModel(Assignment2.Data.ApplicationContext context)
+        public EditModel(Assignment2.Data.AssignmentContext context)
         {
             _context = context;
         }

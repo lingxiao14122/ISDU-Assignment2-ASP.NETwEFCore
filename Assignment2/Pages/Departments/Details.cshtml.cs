@@ -12,9 +12,9 @@ namespace Assignment2.Pages.Departments
 {
     public class DetailsModel : PageModel
     {
-        private readonly Assignment2.Data.ApplicationContext _context;
+        private readonly Assignment2.Data.AssignmentContext _context;
 
-        public DetailsModel(Assignment2.Data.ApplicationContext context)
+        public DetailsModel(Assignment2.Data.AssignmentContext context)
         {
             _context = context;
         }

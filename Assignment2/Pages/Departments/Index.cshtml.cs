@@ -12,9 +12,9 @@ namespace Assignment2.Pages.Departments
 {
     public class IndexModel : PageModel
     {
-        private readonly Assignment2.Data.ApplicationContext _context;
+        private readonly Assignment2.Data.AssignmentContext _context;
 
-        public IndexModel(Assignment2.Data.ApplicationContext context)
+        public IndexModel(Assignment2.Data.AssignmentContext context)
         {
             _context = context;
         }

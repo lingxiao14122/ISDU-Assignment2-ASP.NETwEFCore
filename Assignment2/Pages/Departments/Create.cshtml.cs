@@ -12,9 +12,9 @@ namespace Assignment2.Pages.Departments
 {
     public class CreateModel : PageModel
     {
-        private readonly Assignment2.Data.ApplicationContext _context;
+        private readonly Assignment2.Data.AssignmentContext _context;
 
-        public CreateModel(Assignment2.Data.ApplicationContext context)
+        public CreateModel(Assignment2.Data.AssignmentContext context)
         {
             _context = context;
         }
@@ -31,6 +31,9 @@ namespace Assignment2.Pages.Departments
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            Console.WriteLine(!ModelState.IsValid);
+            Console.WriteLine(_context.Department == null);
+            Console.WriteLine(Department == null);
           if (!ModelState.IsValid || _context.Department == null || Department == null)
             {
                 return Page();
