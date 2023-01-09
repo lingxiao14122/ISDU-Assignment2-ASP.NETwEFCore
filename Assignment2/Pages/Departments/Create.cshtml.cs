@@ -26,23 +26,24 @@ namespace Assignment2.Pages.Departments
 
         [BindProperty]
         public Department Department { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine(!ModelState.IsValid);
-            Console.WriteLine(_context.Department == null);
-            Console.WriteLine(Department == null);
-          if (!ModelState.IsValid || _context.Department == null || Department == null)
+            var emptyDepartment = new Department();
+
+            if (await TryUpdateModelAsync<Department>(
+                emptyDepartment,
+                "department",   // Prefix for form value.
+                s => s.Name, s => s.Description))
             {
-                return Page();
+                _context.Departments.Add(emptyDepartment);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Department.Add(Department);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

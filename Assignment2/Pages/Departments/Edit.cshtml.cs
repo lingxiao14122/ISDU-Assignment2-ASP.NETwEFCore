@@ -30,7 +30,7 @@ namespace Assignment2.Pages.Departments
                 return NotFound();
             }
 
-            var department =  await _context.Departments.FirstOrDefaultAsync(m => m.DepartmentID == id);
+            var department =  await _context.Departments.FindAsync(id);
             if (department == null)
             {
                 return NotFound();
@@ -41,37 +41,25 @@ namespace Assignment2.Pages.Departments
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var departmentToUpdate = await _context.Departments.FindAsync(id);
+
+            if (departmentToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Department).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Department>(
+                departmentToUpdate,
+                "department",
+                s => s.Name, s => s.Description))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmentExists(Department.DepartmentID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool DepartmentExists(int id)
-        {
-          return (_context.Departments?.Any(e => e.DepartmentID == id)).GetValueOrDefault();
+            return Page();
         }
     }
 }

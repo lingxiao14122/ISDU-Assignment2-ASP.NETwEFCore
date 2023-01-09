@@ -13,23 +13,29 @@ namespace Assignment2.Pages.Departments
     public class DeleteModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;
+        private readonly ILogger<DeleteModel> _logger;
 
-        public DeleteModel(Assignment2.Data.AssignmentContext context)
+        public DeleteModel(Assignment2.Data.AssignmentContext context,
+                           ILogger<DeleteModel> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
-      public Department Department { get; set; } = default!;
+      public Department Department { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
         {
             if (id == null || _context.Departments == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Departments.FirstOrDefaultAsync(m => m.DepartmentID == id);
+            var department = await _context.Departments
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.DepartmentID == id);
 
             if (department == null)
             {
@@ -39,6 +45,12 @@ namespace Assignment2.Pages.Departments
             {
                 Department = department;
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ErrorMessage = String.Format("Delete {ID} failed. Try again", id);
+            }
+
             return Page();
         }
 
@@ -50,14 +62,24 @@ namespace Assignment2.Pages.Departments
             }
             var department = await _context.Departments.FindAsync(id);
 
-            if (department != null)
+            if (department == null)
             {
-                Department = department;
-                _context.Departments.Remove(Department);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Departments.Remove(department);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, ErrorMessage);
+
+                return RedirectToAction("./Delete",
+                                     new { id, saveChangesError = true });
+            }
         }
     }
 }
