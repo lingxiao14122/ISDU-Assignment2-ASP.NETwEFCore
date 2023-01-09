@@ -14,7 +14,7 @@ namespace Assignment2.Data
         {
         }
 
-        public DbSet<Assignment2.Models.Department> Department {get; set;}
+        public DbSet<Assignment2.Models.Department> Departments {get; set;}
         public DbSet<Assignment2.Models.User> User {get; set;}
         public DbSet<Assignment2.Models.UserAccess> UserAccess {get; set;}
         public DbSet<Assignment2.Models.UserAccessMap> UserAccessMap {get; set;}

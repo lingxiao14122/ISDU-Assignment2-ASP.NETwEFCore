@@ -23,12 +23,12 @@ namespace Assignment2.Pages.Departments
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Departments == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department.FirstOrDefaultAsync(m => m.DepartmentID == id);
+            var department = await _context.Departments.FirstOrDefaultAsync(m => m.DepartmentID == id);
             if (department == null)
             {
                 return NotFound();

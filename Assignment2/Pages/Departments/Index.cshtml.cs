@@ -23,9 +23,9 @@ namespace Assignment2.Pages.Departments
 
         public async Task OnGetAsync()
         {
-            if (_context.Department != null)
+            if (_context.Departments != null)
             {
-                Department = await _context.Department.ToListAsync();
+                Department = await _context.Departments.ToListAsync();
             }
         }
     }
