@@ -28,7 +28,11 @@ namespace Assignment2.Pages.GrantAccesses
                 return NotFound();
             }
 
-            var useraccessmap = await _context.UserAccessMap.FirstOrDefaultAsync(m => m.UserAccessMapID == id);
+            var useraccessmap = await _context.UserAccessMap
+                .Include(u => u.User)
+                .Include(u => u.UserAccess)
+                .FirstOrDefaultAsync(m => m.UserAccessMapID == id);
+
             if (useraccessmap == null)
             {
                 return NotFound();

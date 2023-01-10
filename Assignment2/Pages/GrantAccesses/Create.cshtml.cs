@@ -21,8 +21,8 @@ namespace Assignment2.Pages.GrantAccesses
 
         public IActionResult OnGet()
         {
-        ViewData["UserID"] = new SelectList(_context.Users, "UserID", "UserID");
-        ViewData["UserAccessID"] = new SelectList(_context.UserAccess, "UserAccessID", "UserAccessID");
+        ViewData["UserID"] = new SelectList(_context.Users, "UserID", "UserName");
+        ViewData["UserAccessID"] = new SelectList(_context.UserAccess, "UserAccessID", "UserAccessName");
             return Page();
         }
 

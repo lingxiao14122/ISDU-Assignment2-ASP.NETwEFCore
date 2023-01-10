@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["location"] = "GrantAccess";
 }
 
 <h1>Details</h1>
@@ -15,13 +16,13 @@
             @Html.DisplayNameFor(model => model.UserAccessMap.User)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserAccessMap.User.UserID)
+            @Html.DisplayFor(model => model.UserAccessMap.User.UserName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserAccessMap.UserAccess)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserAccessMap.UserAccess.UserAccessID)
+            @Html.DisplayFor(model => model.UserAccessMap.UserAccess.UserAccessName)
         </dd>
     </dl>
 </div>

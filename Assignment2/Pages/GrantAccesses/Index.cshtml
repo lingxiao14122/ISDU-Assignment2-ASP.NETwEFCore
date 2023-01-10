@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["location"] = "GrantAccess";
 }
 
 <h1>Index</h1>
@@ -26,10 +27,10 @@
 @foreach (var item in Model.UserAccessMap) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserID)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserAccess.UserAccessID)
+                @Html.DisplayFor(modelItem => item.UserAccess.UserAccessName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.UserAccessMapID">Edit</a> |
