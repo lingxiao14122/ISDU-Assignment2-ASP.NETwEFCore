@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Assignment2.Data;
-using Assignment2.Models;
 
 namespace Assignment2.Pages.Users
 {
@@ -30,13 +25,13 @@ namespace Assignment2.Pages.Users
                 return NotFound();
             }
 
-            var user =  await _context.Users.FirstOrDefaultAsync(m => m.UserID == id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserID == id);
             if (user == null)
             {
                 return NotFound();
             }
             User = user;
-           ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
             return Page();
         }
 
@@ -72,7 +67,7 @@ namespace Assignment2.Pages.Users
 
         private bool UserExists(int id)
         {
-          return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Assignment2.Data;
-using Assignment2.Models;
 
 namespace Assignment2.Pages.Departments
 {
@@ -30,7 +23,7 @@ namespace Assignment2.Pages.Departments
                 return NotFound();
             }
 
-            var department =  await _context.Departments.FindAsync(id);
+            var department = await _context.Departments.FindAsync(id);
             if (department == null)
             {
                 return NotFound();

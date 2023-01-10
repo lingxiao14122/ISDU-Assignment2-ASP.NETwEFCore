@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Assignment2.Data;
-using Assignment2.Models;
 
 namespace Assignment2.Pages.Departments
 {
@@ -23,7 +18,7 @@ namespace Assignment2.Pages.Departments
         }
 
         [BindProperty]
-      public Department Department { get; set; }
+        public Department Department { get; set; }
         public string ErrorMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id, bool? saveChangesError = false)
@@ -41,7 +36,7 @@ namespace Assignment2.Pages.Departments
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Department = department;
             }

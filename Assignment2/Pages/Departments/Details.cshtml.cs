@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Assignment2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Assignment2.Data;
-using Assignment2.Models;
 
 namespace Assignment2.Pages.Departments
 {
@@ -19,7 +14,7 @@ namespace Assignment2.Pages.Departments
             _context = context;
         }
 
-      public Department Department { get; set; } = default!; 
+        public Department Department { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +28,7 @@ namespace Assignment2.Pages.Departments
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Department = department;
             }

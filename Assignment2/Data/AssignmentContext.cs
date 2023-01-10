@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Assignment2.Models;
 using Microsoft.EntityFrameworkCore;
-using Assignment2.Models;
 
 namespace Assignment2.Data
 {
     public class AssignmentContext : DbContext
     {
-        public AssignmentContext (DbContextOptions<AssignmentContext> options)
+        public AssignmentContext(DbContextOptions<AssignmentContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Assignment2.Models.Department> Departments {get; set;}
-        public DbSet<Assignment2.Models.User> Users {get; set;}
-        public DbSet<Assignment2.Models.UserAccess> UserAccess {get; set;}
-        public DbSet<Assignment2.Models.UserAccessMap> UserAccessMap {get; set;}
+        public DbSet<Assignment2.Models.Department> Departments { get; set; }
+        public DbSet<Assignment2.Models.User> Users { get; set; }
+        public DbSet<Assignment2.Models.UserAccess> UserAccess { get; set; }
+        public DbSet<Assignment2.Models.UserAccessMap> UserAccessMap { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
