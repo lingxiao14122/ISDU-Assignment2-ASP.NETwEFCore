@@ -50,14 +50,14 @@ namespace Assignment2.Pages.Users
             // hash if password field edited
             if (! User.Password.Equals(userToUpdate.Password))
             {
-                User.Password = CreateModel.hashpass(User.Password);
+                userToUpdate.Password = CreateModel.hashpass(User.Password);
             }
 
             if (await TryUpdateModelAsync<User>(
                 userToUpdate,
                 "user",
                 s => s.UserName, s => s.UserEmail, s => s.EmployeeNumber,
-                s => s.Age, s => s.Password, s => s.DepartmentID, s => s.Active))
+                s => s.Age, s => s.DepartmentID, s => s.Active))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
