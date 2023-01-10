@@ -25,49 +25,47 @@ namespace Assignment2.Pages.Users
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserID == id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
             User = user;
-            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+            ViewData["Active"] = new SelectList(Active.active);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var userToUpdate = await _context.Users.FindAsync(id);
+
+            if (userToUpdate == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            // hash if password field edited
+            if (! User.Password.Equals(userToUpdate.Password))
+            {
+                User.Password = CreateModel.hashpass(User.Password);
+            }
 
-            try
+            if (await TryUpdateModelAsync<User>(
+                userToUpdate,
+                "user",
+                s => s.UserName, s => s.UserEmail, s => s.EmployeeNumber,
+                s => s.Age, s => s.Password, s => s.DepartmentID, s => s.Active))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(User.UserID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool UserExists(int id)
-        {
-            return (_context.Users?.Any(e => e.UserID == id)).GetValueOrDefault();
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+            ViewData["Active"] = new SelectList(Active.active);
+            return Page();
         }
     }
 }
