@@ -23,7 +23,8 @@ namespace Assignment2.Pages.Users
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserID == id);
+            var user = await _context.Users.Include(u => u.Department).FirstOrDefaultAsync(m => m.UserID == id);
+
             if (user == null)
             {
                 return NotFound();
