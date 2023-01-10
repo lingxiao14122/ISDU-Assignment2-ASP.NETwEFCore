@@ -1,0 +1,42 @@
+﻿@page
+@model Assignment2.Pages.GrantAccesses.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccessMap[0].User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccessMap[0].UserAccess)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserAccessMap) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserAccess.UserAccessID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.UserAccessMapID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.UserAccessMapID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.UserAccessMapID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
