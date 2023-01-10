@@ -22,10 +22,20 @@ namespace Assignment2.Data
 
             var users = new User[]
             {
-                new User{UserName="jason",UserEmail="jason@gmail.com",EmployeeNumber="E001", Age=22, Password="adasdasdasd", DepartmentID=1, Active="Yes"}
+                new User{UserName="jason",UserEmail="jason@gmail.com",EmployeeNumber="E001", Age=22, Password="j���*\u0011�r\u001d\u0015B�", DepartmentID=1, Active="Yes"},
+                new User{UserName="jasmine",UserEmail="jasmine@gmail.com",EmployeeNumber="E002", Age=22, Password="j���*\u0011�r\u001d\u0015B�", DepartmentID=2, Active="Yes"}
             };
 
             context.Users.AddRange(users);
+            context.SaveChanges();
+
+            var userAccess = new UserAccess[]
+            {
+                new UserAccess{UserAccessName="Admin",Description="Admin permissions"},
+                new UserAccess{UserAccessName="Basic",Description="Basic permissions"}
+            };
+
+            context.UserAccess.AddRange(userAccess);
             context.SaveChanges();
         }
     }
