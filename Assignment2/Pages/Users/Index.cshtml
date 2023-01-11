@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
     ViewData["location"] = "Users";
+    var UploadsFolder = ViewData["UploadsFolder"];
 }
 
 <h1>Index</h1>
@@ -14,6 +15,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Photo)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.User[0].UserName)
             </th>
@@ -39,35 +43,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.User) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateEntered)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.UserID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.UserID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.UserID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.User)
+        {
+            <tr>
+                <td>
+                    <img src="@(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/Uploads/" + @item.Photo)" 
+                        width="100"
+                        class="img-fluid img-thumbnail" 
+                        alt="Employee photo">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateEntered)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.UserID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.UserID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.UserID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

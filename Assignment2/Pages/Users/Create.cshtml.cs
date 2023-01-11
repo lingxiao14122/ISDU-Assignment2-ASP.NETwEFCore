@@ -1,4 +1,5 @@
 ﻿using Assignment2.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,12 @@ namespace Assignment2.Pages.Users
     public class CreateModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public CreateModel(Assignment2.Data.AssignmentContext context)
+        public CreateModel(Assignment2.Data.AssignmentContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         public IActionResult OnGet()
@@ -44,12 +47,18 @@ namespace Assignment2.Pages.Users
                 }
             }
 
+            if (User.FormFile != null)
+            {
+                User.Photo = ProcessUploadedFile(User.FormFile);
+            }
+
             if (await TryUpdateModelAsync<User>(
                 emptyUser,
-                "user",   // Prefix for form value.
+                "user",
                 s => s.UserName, s => s.UserEmail, s => s.EmployeeNumber,
                 s => s.Age, s => s.Password, s => s.DepartmentID, s => s.Active))
             {
+                emptyUser.Photo = ProcessUploadedFile(User.FormFile);
                 // hash password
                 emptyUser.Password = hashpass(emptyUser.Password);
                 _context.Users.Add(emptyUser);
@@ -72,6 +81,19 @@ namespace Assignment2.Pages.Users
             }
             // Return the hexadecimal string
             return System.Text.Encoding.UTF8.GetString(result);
+        }
+        private string ProcessUploadedFile(IFormFile formFile)
+        {
+            string uniqueFileName;
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + formFile.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                formFile.CopyTo(fileStream);
+            }
+            return uniqueFileName;
         }
     }
 

@@ -12,8 +12,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User.FormFile" class="control-label"></label>
+                <input asp-for="User.FormFile" class="form-control" type="file" />
+                <span asp-validation-for="User.FormFile" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="User.UserName" class="control-label"></label>
                 <input asp-for="User.UserName" class="form-control" />
