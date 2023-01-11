@@ -10,6 +10,7 @@ namespace Assignment2.Models
         public string Photo { get; set; } = string.Empty;
         [ValidateNever]
         [NotMapped]
+        [Display(Name = "Upload Photo")]
         public IFormFile FormFile { get; set; }
         [Display(Name = "Username")]
         public string UserName { get; set; }
