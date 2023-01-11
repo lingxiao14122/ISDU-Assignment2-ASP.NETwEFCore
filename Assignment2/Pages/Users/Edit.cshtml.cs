@@ -9,10 +9,12 @@ namespace Assignment2.Pages.Users
     public class EditModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public EditModel(Assignment2.Data.AssignmentContext context)
+        public EditModel(Assignment2.Data.AssignmentContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         [BindProperty]
@@ -53,6 +55,11 @@ namespace Assignment2.Pages.Users
                 userToUpdate.Password = CreateModel.hashpass(User.Password);
             }
 
+            if (User.FormFile != null)
+            {
+                userToUpdate.Photo = ProcessUploadedFile(User.FormFile);
+            }
+
             if (await TryUpdateModelAsync<User>(
                 userToUpdate,
                 "user",
@@ -66,6 +73,20 @@ namespace Assignment2.Pages.Users
             ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
             ViewData["Active"] = new SelectList(Active.active);
             return Page();
+        }
+
+        private string ProcessUploadedFile(IFormFile formFile)
+        {
+            string uniqueFileName;
+
+            string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
+            uniqueFileName = Guid.NewGuid().ToString() + "_" + formFile.FileName;
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                formFile.CopyTo(fileStream);
+            }
+            return uniqueFileName;
         }
     }
 }
