@@ -13,7 +13,7 @@ namespace Assignment2.Pages
 
         public void OnGet()
         {
-
+            Response.Redirect("/Users");
         }
     }
 }

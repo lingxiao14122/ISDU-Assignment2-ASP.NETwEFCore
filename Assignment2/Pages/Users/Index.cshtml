@@ -8,15 +8,18 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<form method="get" action="/Users/CreateMany">
+<div class="d-flex align-items-center justify-content-between">
     <p>
-        Create <input type="number" min="1" required name="RowCount"/> users
-        <input type="submit" value="Create" />
+        <a asp-page="Create">Create New</a>
     </p>
-</form>
+    <form method="get" action="/Users/CreateMany">
+        <p>
+            Create <input type="number" min="1" required name="RowCount" style="width: 5rem"/> users
+            <input type="submit" value="Bulk Create" />
+        </p>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -52,10 +55,10 @@
         {
             <tr>
                 <td>
-                    <img src="@(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/Uploads/" + @item.Photo)" 
-                        width="100"
-                        class="img-fluid img-thumbnail" 
-                        alt="Employee photo">
+                    <img src="@(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + "/Uploads/" + @item.Photo)"
+                     width="100"
+                     class="img-fluid img-thumbnail"
+                     alt="Employee photo">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
