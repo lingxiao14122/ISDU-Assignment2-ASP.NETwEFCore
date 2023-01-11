@@ -49,7 +49,7 @@ namespace Assignment2.Pages.Users
 
             if (User.FormFile != null)
             {
-                User.Photo = ProcessUploadedFile(User.FormFile);
+                User.Photo = ProcessUploadedFile(User.FormFile, webHostEnvironment);
             }
 
             if (await TryUpdateModelAsync<User>(
@@ -58,7 +58,7 @@ namespace Assignment2.Pages.Users
                 s => s.UserName, s => s.UserEmail, s => s.EmployeeNumber,
                 s => s.Age, s => s.Password, s => s.DepartmentID, s => s.Active))
             {
-                emptyUser.Photo = ProcessUploadedFile(User.FormFile);
+                emptyUser.Photo = ProcessUploadedFile(User.FormFile, webHostEnvironment);
                 // hash password
                 emptyUser.Password = hashpass(emptyUser.Password);
                 _context.Users.Add(emptyUser);
@@ -82,7 +82,7 @@ namespace Assignment2.Pages.Users
             // Return the hexadecimal string
             return System.Text.Encoding.UTF8.GetString(result);
         }
-        private string ProcessUploadedFile(IFormFile formFile)
+        public static string ProcessUploadedFile(IFormFile formFile,IWebHostEnvironment webHostEnvironment)
         {
             string uniqueFileName;
 

@@ -1,0 +1,103 @@
+﻿@page "{RowCount:int?}"
+@model Assignment2.Pages.Users.CreateManyModel
+
+@{
+    ViewData["Title"] = "CreateMany";
+}
+
+<h1>CreateMany</h1>
+
+<h4>User</h4>
+<hr />
+<form method="post" enctype="multipart/form-data">
+    <div style="overflow-x: scroll">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].Photo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].UserEmail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].EmployeeNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].Age)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].Department)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Users[0].Active)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var i = 0;
+                }
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <input style="width: 16rem;" name="Users[@i].FormFile" id="Users[@i].FormFile" class="form-control" type="file" />
+                            <span asp-validation-for="Users[@i].FormFile" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input style="width: 10rem;" name="Users[@i].UserName" id="Users[@i].UserName" class="form-control" />
+                            <span asp-validation-for="Users[@i].UserName" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input style="width: 10rem;" name="Users[@i].UserEmail" id="Users[@i].UserEmail" class="form-control" />
+                            <span asp-validation-for="Users[@i].UserEmail" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input style="width: 10rem;" name="Users[@i].EmployeeNumber" id="Users[@i].EmployeeNumber" class="form-control" />
+                            <span asp-validation-for="Users[@i].EmployeeNumber" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input style="width: 5rem;" name="Users[@i].Age" id="Users[@i].Age" class="form-control" />
+                            <span asp-validation-for="Users[@i].Age" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input style="width: 10rem;" type="password" name="Users[@i].Password" id="Users[@i].Password" class="form-control" />
+                            <span asp-validation-for="Users[@i].Password" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <select style="width: min-content;" name="Users[@i].DepartmentID" id="Users[@i].DepartmentID" class="form-control"
+                                asp-items="ViewBag.DepartmentID"></select>
+                        </td>
+                        <td>
+                            <select style="width: min-content;" name="Users[@i].Active" id="Users[@i].Active" class="form-control" asp-items="ViewBag.Active"></select>
+                            <span asp-validation-for="Users[@i].Active" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    // increment i
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

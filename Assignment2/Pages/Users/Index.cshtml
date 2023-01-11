@@ -11,6 +11,12 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form method="get" action="/Users/CreateMany">
+    <p>
+        Create <input type="number" min="1" required name="RowCount"/> users
+        <input type="submit" value="Create" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
