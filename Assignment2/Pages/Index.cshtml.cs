@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Assignment2.Pages
 {
@@ -11,9 +12,13 @@ namespace Assignment2.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Response.Redirect("/Users");
+            if (User.Identity.IsAuthenticated)
+            {
+                return Page();
+            }
+            return Challenge();
         }
     }
 }

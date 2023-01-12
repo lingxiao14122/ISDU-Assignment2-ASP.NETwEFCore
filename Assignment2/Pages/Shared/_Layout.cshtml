@@ -20,6 +20,14 @@
                     <span class="fs-4">Assignment2</span>
                 </a>
                 <hr>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="d-flex justify-content-between">
+                        <p class="my-0 d-inline mx-2">Hello, @User.Identity.Name</p>
+                        <a class="d-inline mx-2" asp-page="/Logout">Logout</a>
+                    </div>
+                    <hr>
+                }
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
                         <a href="/Users/Index" class="nav-link @(ViewData["location"] == "Users" ? "active" : "")">
