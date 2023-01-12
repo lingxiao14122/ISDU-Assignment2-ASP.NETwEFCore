@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Assignment2.Data;
 using Assignment2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assignment2.Pages.Users
 {
+    [Authorize(Policy = "BusinessUserOnly")]
     public class CreateManyModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;

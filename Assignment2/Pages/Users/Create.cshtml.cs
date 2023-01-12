@@ -1,12 +1,15 @@
 ﻿using Assignment2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace Assignment2.Pages.Users
 {
+    [Authorize(Policy = "BusinessUserOnly")]
     public class CreateModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;

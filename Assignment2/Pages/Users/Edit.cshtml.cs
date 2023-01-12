@@ -1,4 +1,5 @@
 ﻿using Assignment2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2.Pages.Users
 {
+    [Authorize(Policy = "BusinessUserOnly")]
     public class EditModel : PageModel
     {
         private readonly Assignment2.Data.AssignmentContext _context;
