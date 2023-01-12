@@ -49,36 +49,36 @@
                 {
                     <tr>
                         <td>
-                            <input style="width: 16rem;" name="Users[@i].FormFile" id="Users[@i].FormFile" class="form-control" type="file" />
-                            <span asp-validation-for="Users[@i].FormFile" class="text-danger"></span>
+                            <input style="width: 16rem;" asp-for="@Model.Users[i].FormFile" class="form-control" type="file" />
+                            <span asp-validation-for="@Model.Users[i].FormFile" class="text-danger"></span>
                         </td>
                         <td>
-                            <input style="width: 10rem;" name="Users[@i].UserName" id="Users[@i].UserName" class="form-control" />
-                            <span asp-validation-for="Users[@i].UserName" class="text-danger"></span>
+                            <input style="width: 10rem;" asp-for="@Model.Users[i].UserName" class="form-control" />
+                            <span asp-validation-for="@Model.Users[i].UserName" class="text-danger"></span>
                         </td>
                         <td>
-                            <input type="email" style="width: 10rem;" name="Users[@i].UserEmail" id="Users[@i].UserEmail" class="form-control" />
-                            <span asp-validation-for="Users[@i].UserEmail" class="text-danger"></span>
+                            <input type="email" style="width: 10rem;" asp-for="@Model.Users[i].UserEmail" class="form-control" />
+                            <span asp-validation-for="@Model.Users[i].UserEmail" class="text-danger"></span>
                         </td>
                         <td>
-                            <input style="width: 10rem;" name="Users[@i].EmployeeNumber" id="Users[@i].EmployeeNumber" class="form-control" />
-                            <span asp-validation-for="Users[@i].EmployeeNumber" class="text-danger"></span>
+                            <input style="width: 10rem;" asp-for="@Model.Users[i].EmployeeNumber" class="form-control" />
+                            <span asp-validation-for="@Model.Users[i].EmployeeNumber" class="text-danger"></span>
                         </td>
                         <td>
-                            <input style="width: 5rem;" name="Users[@i].Age" id="Users[@i].Age" class="form-control" />
-                            <span asp-validation-for="Users[@i].Age" class="text-danger"></span>
+                            <input style="width: 5rem;" asp-for="@Model.Users[i].Age" class="form-control" />
+                            <span asp-validation-for="@Model.Users[i].Age" class="text-danger"></span>
                         </td>
                         <td>
-                            <input style="width: 10rem;" type="password" name="Users[@i].Password" id="Users[@i].Password" class="form-control" />
-                            <span asp-validation-for="Users[@i].Password" class="text-danger"></span>
+                            <input style="width: 10rem;" type="password" asp-for="@Model.Users[i].Password" class="form-control" />
+                            <span asp-validation-for="@Model.Users[i].Password" class="text-danger"></span>
                         </td>
                         <td>
-                            <select style="width: min-content;" name="Users[@i].DepartmentID" id="Users[@i].DepartmentID" class="form-control"
+                            <select style="width: min-content;" asp-for="@Model.Users[i].DepartmentID" class="form-control"
                                 asp-items="ViewBag.DepartmentID"></select>
                         </td>
                         <td>
-                            <select style="width: min-content;" name="Users[@i].Active" id="Users[@i].Active" class="form-control" asp-items="ViewBag.Active"></select>
-                            <span asp-validation-for="Users[@i].Active" class="text-danger"></span>
+                            <select style="width: min-content;" asp-for="@Model.Users[i].Active" class="form-control" asp-items="ViewBag.Active"></select>
+                            <span asp-validation-for="@Model.Users[i].Active" class="text-danger"></span>
                         </td>
                     </tr>
                     // increment i
